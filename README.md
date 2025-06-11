@@ -124,8 +124,10 @@ website_persons/
 │   ├── persons_views.xml
 │   └── website_templates.xml
 ├── controllers/
+│   └── __init__.py
 │   └── main.py
 └── models/
+    └── __init__.py
     └── persons.py
 ```
 
