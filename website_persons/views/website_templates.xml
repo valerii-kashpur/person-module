@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Persons List Template -->
+    <template id="persons_list_template" name="Persons List">
+        <t t-call="website.layout">
+            <t t-set="title">Persons List</t>
+            <div class="container">
+                <h1>Persons</h1>
+                <a href="/persons/add" class="btn btn-primary mb-3">Add New Person</a>
+                <div class="row">
+                    <t t-foreach="persons" t-as="person">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <t t-esc="person.full_name"/>
+                                    </h5>
+                                    <p class="card-text">
+                                        <strong>Sex:</strong>
+                                        <t t-esc="person.sex if person.sex else 'Not specified'"/>
+                                        <br/>
+                                        <strong>Age:</strong>
+                                        <t t-esc="person.age"/>
+                                        <br/>
+                                        <strong>Company:</strong>
+                                        <t t-esc="person.company_id.name"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Persons Add Form Template -->
+    <template id="persons_add_template" name="Add Person">
+        <t t-call="website.layout">
+            <t t-set="title">Add New Person</t>
+            <div class="container">
+                <h1>Add New Person</h1>
+                <form action="/persons/add" method="post" t-attf-csrf_token="true">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="mb-3">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required="1"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" required="1"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="birthday" class="form-label">Birthday</label>
+                        <input type="date" class="form-control" id="birthday" name="birthday"/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sex" class="form-label">Sex</label>
+                        <select class="form-control" id="sex" name="sex">
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="non_binary">Non-binary</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="company_id" class="form-label">Company</label>
+                        <select class="form-control" id="company_id" name="company_id" required="1">
+                            <t t-foreach="companies" t-as="company">
+                                <option t-att-value="company.id">
+                                    <t t-esc="company.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>
