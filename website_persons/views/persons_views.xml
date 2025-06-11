@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_persons_tree" model="ir.ui.view">
+            <field name="name">website.persons.tree</field>
+            <field name="model">website.persons</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="full_name"/>
+                    <field name="birthday"/>
+                    <field name="age"/>
+                    <field name="sex"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_persons_form" model="ir.ui.view">
+            <field name="name">website.persons.form</field>
+            <field name="model">website.persons</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="last_name"/>
+                            <field name="full_name" readonly="1"/>
+                            <field name="birthday"/>
+                            <field name="age" readonly="1"/>
+                            <field name="sex"/>
+                            <field name="company_id" options="{'no_create': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_persons" model="ir.actions.act_window">
+            <field name="name">Persons</field>
+            <field name="res_model">website.persons</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Frontend menu -->
+        <record id="persons_menu_item" model="website.menu">
+            <field name="name">Persons</field>
+            <field name="url">/persons</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">10</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_persons"
+                  name="Persons"
+                  parent="website.menu_website_global_configuration"
+                  action="action_persons"
+                  sequence="60"/>
+    </data>
+</odoo>
